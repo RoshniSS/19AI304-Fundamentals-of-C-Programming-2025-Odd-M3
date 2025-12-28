@@ -27,7 +27,9 @@ To formulate a C program to convert a decimal number into its binary equivalent 
 ### Step 8: 
    Stop
 # Program:
+
 #include <stdio.h>
+
 int main()
 {
     int num, rem, i = 0, k;
@@ -40,6 +42,7 @@ int main()
         printf("Binary of 0 is 0\n");
         return 0;
     }
+    
     while (num > 0)
     {
         binary[i] = num % 2;
@@ -47,6 +50,7 @@ int main()
         i++;
     }
     printf("Binary equivalent of %d is: ", temp);
+    
     for (k = i - 1; k >= 0; k--)
     {
         printf("%d", binary[k]);
