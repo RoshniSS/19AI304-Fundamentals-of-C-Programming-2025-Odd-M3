@@ -4,7 +4,6 @@
 ## 6. Implementation of string manipulation.
 # Ex.No:11
   Formulate a C program to convert a given decimal number into its binary equivalent and display it.
-# Date : 
 # Aim:
 To formulate a C program to convert a decimal number into its binary equivalent and display it.
 # Algorithm:
@@ -28,7 +27,37 @@ To formulate a C program to convert a decimal number into its binary equivalent 
 ### Step 8: 
    Stop
 # Program:
+#include <stdio.h>
+int main()
+{
+    int num, rem, i = 0, k;
+    int binary[32]; 
+    printf("Enter a decimal number: ");
+    scanf("%d", &num);
+    int temp = num;  
+    if (num == 0)
+    {
+        printf("Binary of 0 is 0\n");
+        return 0;
+    }
+    while (num > 0)
+    {
+        binary[i] = num % 2;
+        num = num / 2;
+        i++;
+    }
+    printf("Binary equivalent of %d is: ", temp);
+    for (k = i - 1; k >= 0; k--)
+    {
+        printf("%d", binary[k]);
+    }
+    printf("\n");
+    return 0;
+}
+
 # Output:
+<img width="1513" height="713" alt="Screenshot 2025-12-28 152551" src="https://github.com/user-attachments/assets/ad3b77d8-de82-406d-a388-280440ba8498" />
+
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
@@ -36,8 +65,7 @@ Thus, the program was implemented and executed successfully, and the required ou
 # 19AI304-Fundamentals-of-C-Programming-2025-Odd-M3
 # IAPR-3- Module 3 - FoC
 # Ex.No:12
-  Develop a C program to read a matrix and find its saddle point. A saddle point is an element that is the minimum in its row and also the maximum in its column. If such an element exists, display its position and value.
-# Date : 
+  Develop a C program to read a matrix and find its saddle point. A saddle point is an element that is the minimum in its row and also the maximum in its column. If such an element exists, display its position and value. 
 # Aim:
   To develop a C program that inputs a matrix, checks each row for its minimum element, verifies whether that element is also the maximum in its corresponding column, and displays the saddle point and its position if it exists.
 # Algorithm:
@@ -67,7 +95,66 @@ Thus, the program was implemented and executed successfully, and the required ou
 ### Step 9: 
   Stop
 # Program:
+#include <stdio.h>
+int main()
+{
+    int i, j, k, m;
+    int min, max;
+    int saddle_found = 0;
+    printf("Enter the order of the square matrix: ");
+    scanf("%d", &m);
+
+    int matrix[m][m];
+
+    printf("Enter the elements of the matrix:\n");
+    for (i = 0; i < m; i++)
+        for (j = 0; j < m; j++)
+            scanf("%d", &matrix[i][j]);
+
+    printf("\nThe matrix is:\n");
+    for (i = 0; i < m; i++)
+    {
+        for (j = 0; j < m; j++)
+            printf("%d\t", matrix[i][j]);
+        printf("\n");
+    }
+
+    for (i = 0; i < m; i++)
+    {
+        min = matrix[i][0];
+        int col_index = 0;
+
+        for (j = 1; j < m; j++)
+        {
+            if (matrix[i][j] < min)
+            {
+                min = matrix[i][j];
+                col_index = j;
+            }
+        }
+
+        max = matrix[0][col_index];
+        for (k = 1; k < m; k++)
+        {
+            if (matrix[k][col_index] > max)
+                max = matrix[k][col_index];
+        }
+
+        if (min == max)
+        {
+            printf("\nSaddle point is %d at position [%d][%d]\n", min, i, col_index);
+            saddle_found = 1;
+        }
+    }
+
+    if (!saddle_found)
+        printf("\nNo saddle point found in the matrix.\n");
+
+    return 0;
+}
 # Output:
+<img width="1491" height="717" alt="Screenshot 2025-12-28 152914" src="https://github.com/user-attachments/assets/9214c826-d27f-4c72-ac70-5b58ced1abec" />
+
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
@@ -101,7 +188,30 @@ Thus, the program was implemented and executed successfully, and the required ou
 ### Step 10: 
   Stop
 # Program:
+#include <stdio.h>
+int main()
+{
+    char s[100], d[100];
+    int i, j, len = 0;
+    printf("Enter a string: ");
+    scanf(" %[^\n]s", s); 
+
+    while (s[len] != '\0')
+        len++;
+        
+    j = 0;
+    for (i = len - 1; i >= 0; i--)
+    {
+        d[j] = s[i];
+        j++;
+    }
+    d[j] = '\0';  
+    printf("Reversed string: %s\n", d);
+    return 0;
+}
 # Output:
+<img width="1491" height="667" alt="Screenshot 2025-12-28 153146" src="https://github.com/user-attachments/assets/cd959f4d-fb50-439a-af79-f61d0a1d5f46" />
+
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
@@ -109,7 +219,6 @@ Thus, the program was implemented and executed successfully, and the required ou
 # IAPR-3- Module 3 - FoC
 # Ex.No:14
   Formulate a C program to count the frequency of each character in a given string and display the count of every character.
-# Date : 
 # Aim:
   To formulate a C program that accepts a string from the user and calculates the frequency of each character in the string.
 # Algorithm:
@@ -135,7 +244,39 @@ Thus, the program was implemented and executed successfully, and the required ou
 ### Step 8:
   Stop
 # Program:
+#include <stdio.h>
+#include <string.h>
+int main()
+{
+    char s[100];
+    int visited[256] = {0};
+    int i, j, n, count;
+    printf("Enter a string: ");
+    scanf(" %[^\n]", s); 
+
+    n = strlen(s);
+    printf("\nCharacter Frequency:\n");
+    for (i = 0; i < n; i++)
+    {
+        if (visited[(unsigned char)s[i]] == 0)
+        {
+            count = 0;
+            for (j = 0; j < n; j++)
+            {
+                if (s[j] == s[i])
+                    count++;
+            }
+            printf("%c : %d\n", s[i], count);
+            visited[(unsigned char)s[i]] = 1;
+        }
+    }
+
+    return 0;
+}
+
 # Output:
+<img width="1483" height="713" alt="Screenshot 2025-12-28 153401" src="https://github.com/user-attachments/assets/4ea570a2-4529-4774-96fe-8ab4c8cd3f59" />
+
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
@@ -169,7 +310,60 @@ Thus, the program was implemented and executed successfully, and the required ou
 ### Step 8: 
   Stop
 # Program:
+#include <stdio.h>
+#include <string.h>
+int main()
+{
+    char str[200], words[50][50];
+    int i = 0, j, k = 0, l = 0, word_count = 0;
+    printf("Enter a string: ");
+    scanf(" %[^\n]s", str);  
+
+    while (str[i] != '\0')
+    {
+        if (str[i] != ' ')
+        {
+            words[word_count][k] = str[i];
+            k++;
+        }
+        else
+        {
+            words[word_count][k] = '\0';
+            word_count++;
+            k = 0;
+        }
+        i++;
+    }
+    words[word_count][k] = '\0';
+    word_count++;
+
+    for (i = 0; i < word_count; i++)
+    {
+        if (words[i][0] != '\0') 
+        {
+            for (j = i + 1; j < word_count; j++)
+            {
+                if (strcmp(words[i], words[j]) == 0)
+                {
+                    words[j][0] = '\0'; 
+                }
+            }
+        }
+    }
+    printf("\nString with unique words: ");
+    for (i = 0; i < word_count; i++)
+    {
+        if (words[i][0] != '\0')
+            printf("%s ", words[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
+
 # Output:
+<img width="1495" height="745" alt="Screenshot 2025-12-28 153703" src="https://github.com/user-attachments/assets/4991eb0e-5a3a-4f80-b2c8-e33fc0fdafa4" />
+
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
